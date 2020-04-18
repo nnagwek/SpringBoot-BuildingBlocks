@@ -10,9 +10,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.springframework.hateoas.RepresentationModel;
+
+
+
 @Entity
 @Table(name= "user")
-public class User {
+public class User extends RepresentationModel<User> {
 
 	@Id
 	@GeneratedValue
@@ -52,8 +56,12 @@ public class User {
 	public User() {
 	}
 
-	//Parameterized Contructor
-	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
+	
+	// Getters & Setters
+	
+	public User(Long id, String username,
+			@Size(min = 2, message = "FirstName should have atleast 2 characters.") String firstname, String lastname,
+			String email, String role, String ssn, List<Order> order) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -62,10 +70,9 @@ public class User {
 		this.email = email;
 		this.role = role;
 		this.ssn = ssn;
+		this.order = order;
 	}
 
-	// Getters & Setters
-	
 	public Long getId() {
 		return id;
 	}
