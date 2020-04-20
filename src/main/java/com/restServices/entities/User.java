@@ -60,6 +60,9 @@ public class User extends RepresentationModel<User> {
 	@JsonView(Views.Internal.class)
 	private List<Order> order;
 	
+	@Column(name="ADDRESS")
+	private String address;
+	
 	public List<Order> getOrder() {
 		return order;
 	}
@@ -72,12 +75,9 @@ public class User extends RepresentationModel<User> {
 	public User() {
 	}
 
-	
-	// Getters & Setters
-	
 	public User(Long id, String username,
 			@Size(min = 2, message = "FirstName should have atleast 2 characters.") String firstname, String lastname,
-			String email, String role, String ssn, List<Order> order) {
+			String email, String role, String ssn, List<Order> order, String address) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -87,8 +87,10 @@ public class User extends RepresentationModel<User> {
 		this.role = role;
 		this.ssn = ssn;
 		this.order = order;
+		this.address = address;
 	}
-
+	
+	// Getters & Setters
 	public Long getId() {
 		return id;
 	}
@@ -145,11 +147,18 @@ public class User extends RepresentationModel<User> {
 		this.ssn = ssn;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	// To String 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
 	}
-	
 }
