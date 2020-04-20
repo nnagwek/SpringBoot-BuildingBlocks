@@ -75,6 +75,15 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
+		<!-- Application XML Content Negotiation -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
