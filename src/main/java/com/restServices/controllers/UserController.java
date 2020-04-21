@@ -22,11 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.common.net.MediaType;
 import com.restServices.Exceptions.UserExistsException;
 import com.restServices.Exceptions.UserNotFoundException;
 import com.restServices.entities.User;
 import com.restServices.services.UserService;
 
+import ch.qos.logback.core.util.ContentTypeUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
+@Api(tags = "User Management RESTful Service" , value = "UserController", description = "Controller for user management restful service")
 @RestController
 @Validated
 @RequestMapping("/users")
@@ -35,13 +43,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@ApiOperation(value = "Retrieve list  of users")
 	@GetMapping
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
 
+	@ApiOperation(value = "Creates a new User")
 	@PostMapping
-	public ResponseEntity<Void>  createUser( @Valid @RequestBody User user, UriComponentsBuilder builder) {
+	public ResponseEntity<Void>  createUser(@ApiParam("User information for the new user to be created ")  @Valid @RequestBody User user, UriComponentsBuilder builder) {
 		try {
 			userService.createUser(user);
 			HttpHeaders headers = new HttpHeaders();
@@ -54,9 +64,10 @@ public class UserController {
 
 	// getUserById
 	@GetMapping("/{id}")
-	public Optional<User> getUserById(@PathVariable("id") @Min(2) Long id) {
+	public User getUserById(@PathVariable("id") @Min(2) Long id) {
 		try {
-			return userService.getUserById(id);
+			Optional<User> userOptional =  userService.getUserById(id);
+			return userOptional.get();
 		} catch (UserNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
