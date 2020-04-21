@@ -22,13 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.google.common.net.MediaType;
 import com.restServices.Exceptions.UserExistsException;
 import com.restServices.Exceptions.UserNotFoundException;
 import com.restServices.entities.User;
 import com.restServices.services.UserService;
 
-import ch.qos.logback.core.util.ContentTypeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
